@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User Form</h5>
+                    <form action="/add" method="post">
+                        {% if entry.id %}
+                            <input hidden type="number" name="id"  value="{{entry.id}}">
+                        {% endif %}
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="{{entry.f_name}}" name="fname" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="{{entry.l_name}}" name="lname" placeholder="Last Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="{{entry.street}}" name="street" placeholder="Street" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="{{entry.city}}" name="city" placeholder="City" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="{{entry.state}}" name="state" placeholder="State" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="{{entry.zip}}" name="zip" placeholder="Zip" required>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">
+                            Save
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Data Table</h3>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip</th>
+                    <th>Action</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <td>{{ entry.id }}</td>
+                    <td>{{ entry.f_name }}</td>
+                    <td>{{ entry.l_name }}</td>
+                    <td>{{ entry.street }}</td>
+                    <td>{{ entry.city }}</td>
+                    <td>{{ entry.state }}</td>
+                    <td>{{ entry.zip }}</td>
+                    <td>
+                        <a class="btn btn-primary"
+                           href="/sub_user/{{ entry.id }}">
+                            Create Sub User
+                        </a>
+                        <a class="btn btn-danger"
+                           href="/delete/{{ entry.id }}">
+                            Delete
+                        </a>
+                        <a class="btn btn-info"
+                           href="/update/{{ entry.id }}">
+                            Edit
+                        </a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Parent Id</th>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Action</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for sub_entry in sub_entries %}
+                <tr>
+                    <td>{{ sub_entry.parent_id }}</td>
+                    <td>{{ sub_entry.id }}</td>
+                    <td>{{ sub_entry.f_name }}</td>
+                    <td>{{ sub_entry.l_name }}</td>
+                    <td>
+                        <a class="btn btn-danger"
+                           href="/sub_user_delete/{{ sub_entry.id }}">
+                            Delete
+                        </a>
+                        <a class="btn btn-info"
+                           href="/sub_user_update/{{ sub_entry.parent_id }}/{{ sub_entry.id }}">
+                            Edit
+                        </a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+

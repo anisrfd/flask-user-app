@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sub User Form</h5>
+                    <form action="/sub_user_add" method="post">
+                        {% if parent_id %}
+                            <input hidden type="number" name="parentId"  value="{{parent_id}}">
+                        {% endif %}
+
+                        {% if entry.id %}
+                            <input hidden type="number" name="id"  value="{{entry.id}}">
+                        {% endif %}
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="{{entry.f_name}}" name="fname" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="{{entry.l_name}}" name="lname" placeholder="Last Name" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Save
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
